@@ -1,62 +1,64 @@
 import streamlit as st
 
-# 1. पेज की सेटिंग
+# 1. पेज की पूरी सेटिंग
 st.set_page_config(page_title="Happy Janmashtami!", page_icon="🪈", layout="centered")
 
-# 2. बैकग्राउंड, सुंदर टेक्स्ट और इमेज को ऊपर-नीचे (Floating) एनिमेट करने के लिए CSS
+# 2. एडवांस CSS: बैकग्राउंड, हेडिंग और ऊपर-नीचे (Floating) होने वाला एनिमेशन
 custom_css = """
 <style>
-    /* ऐप का बैकग्राउंड */
+    /* ऐप का शानदार डार्क फेस्टिवल बैकग्राउंड */
     .stApp {
-        background: linear-gradient(135deg, #1a0033 0%, #4d004d 100%);
+        background: linear-gradient(135deg, #1a0033 0%, #4d004d 100%) !important;
         color: #ffffff;
     }
     
-    /* मुख्य हेडिंग */
+    /* मुख्य चमकती हुई हेडिंग */
     .main-title {
         font-family: 'Georgia', serif;
         color: #FFD700;
         text-align: center;
-        font-size: 3rem;
+        font-size: 2.8rem;
         font-weight: bold;
-        text-shadow: 2px 2px 15px #ff6600;
-        margin-top: 20px;
+        text-shadow: 0px 0px 15px #ff6600;
+        margin-top: 10px;
         margin-bottom: 20px;
     }
     
-    /* बधाई संदेश */
+    /* नीचे का बधाई संदेश */
     .sub-title {
         font-family: 'Georgia', serif;
         color: #00FFCC;
         text-align: center;
-        font-size: 1.4rem;
+        font-size: 1.3rem;
         line-height: 1.8;
-        margin-top: 30px;
+        margin-top: 25px;
         text-shadow: 1px 1px 5px #000;
     }
 
-    /* कृष्ण जी की फोटो को ऊपर-नीचे एनिमेट करने का CSS */
-    .krishna-container {
+    /* कृष्ण जी की फोटो के लिए स्पेशल एनिमेटेड कंटेनर */
+    .krishna-box {
         display: flex;
         justify-content: center;
         align-items: center;
         margin: 20px auto;
     }
     
-    .floating-img {
-        width: 320px; /* आप चाहें तो साइज छोटा-बड़ा कर सकते हैं */
-        border-radius: 20px;
+    /* फोटो की स्टाइल और ऊपर-नीचे होने का मोशन (Floating Effect) */
+    .krishna-box img {
+        width: 280px;
+        max-width: 90%;
+        border-radius: 15px;
         box-shadow: 0px 0px 25px #FFD700;
-        animation: float 3s ease-in-out infinite;
+        animation: floatMotion 3s ease-in-out infinite;
     }
 
-    /* ऊपर-नीचे होने वाला एनिमेशन इफेक्ट */
-    @keyframes float {
+    /* एनिमेट करने का नियम (20 पिक्सेल ऊपर और नीचे जाना) */
+    @keyframes floatMotion {
         0% {
             transform: translateY(0px);
         }
         50% {
-            transform: translateY(-20px); /* 20 पिक्सेल ऊपर जाएगा */
+            transform: translateY(-20px);
         }
         100% {
             transform: translateY(0px);
@@ -66,27 +68,27 @@ custom_css = """
 """
 st.markdown(custom_css, unsafe_allow_html=True)
 
-# 3. स्क्रीन पर "Happy Janmashtami" हेडिंग
+# 3. स्क्रीन पर सबसे ऊपर "Happy Janmashtami" लिखना
 st.markdown("<h1 class='main-title'>✨ Happy Janmashtami ✨</h1>", unsafe_allow_html=True)
 
-# 4. कृष्ण जी की सुंदर फोटो (Floating Animation के साथ)
-# यहाँ एक बेहतरीन और हाई-क्वालिटी कृष्ण जी की तस्वीर का डायरेक्ट लिंक डाला है
-krishna_image_url = "https://unsplash.com"
+# 4. कृष्ण जी की सुंदर तस्वीर (Wikimedia से डायरेक्ट और पक्का लिंक)
+# यह लिंक हमेशा ओपन होगा और इसमें CSS एनिमेशन लगा हुआ है
+safe_krishna_url = "https://wikimedia.org"
 
 st.markdown(
     f"""
-    <div class="krishna-container">
-        <img class="floating-img" src="{krishna_image_url}" alt="Jai Shree Krishna">
+    <div class="krishna-box">
+        <img src="{safe_krishna_url}" alt="Jai Shree Krishna">
     </div>
     """,
     unsafe_allow_html=True
 )
 
-# 5. नीचे का बधाई संदेश
+# 5. नीचे का सुंदर मैसेज
 st.markdown(
     "<p class='sub-title'>माखन चोर नन्द किशोर, बांधे जिसने प्रीत की डोर...<br>हरे कृष्णा! 🌸🪈</p>", 
     unsafe_allow_html=True
 )
 
-# 6. स्क्रीन पर गुब्बारे उड़ाने के लिए
+# 6. ऐप खुलते ही गुब्बारे उड़ाना
 st.balloons()
