@@ -14,23 +14,23 @@ custom_css = """
         overflow: hidden !important;
     }
     
-    /* मुख्य कंटेनर: नाम ऊपर से न कटे इसलिए padding-top को बढ़ाकर 2.5rem कर दिया है */
+    /* मुख्य कंटेनर: नाम ऊपर से न कटे इसलिए padding-top को 2.5rem रखा है */
     .block-container {
         padding-top: 2.5rem !important;
         padding-bottom: 0rem !important;
         max-width: 450px !important;
     }
 
-    /* सबसे ऊपर दिखने वाला नाम और पूरा सही वाक्य (नाम अब ऊपर से बिल्कुल नहीं कटेगा) */
+    /* सबसे ऊपर दिखने वाला डबल नाम और पूरा सही वाक्य (PRABHAT की तरफ से NANDANI को...) */
     .vip-sender-box {
         text-align: center;
         margin-top: 10px;
         margin-bottom: 15px;
-        line-height: 1.4;
+        line-height: 1.5;
     }
-    .vip-sender-name {
+    .vip-name {
         font-family: 'Georgia', serif;
-        font-size: 2.2rem;
+        font-size: 1.9rem;
         font-weight: bold;
         text-transform: uppercase;
         background: linear-gradient(45deg, #FFD700, #ffaa00);
@@ -39,13 +39,24 @@ custom_css = """
         text-shadow: 0px 0px 15px rgba(255, 170, 0, 0.6);
         display: inline-block;
     }
+    .vip-receiver-name {
+        font-family: 'Georgia', serif;
+        font-size: 1.9rem;
+        font-weight: bold;
+        text-transform: uppercase;
+        background: linear-gradient(45deg, #00ffcc, #00bbff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 0px 0px 15px rgba(0, 255, 204, 0.6);
+        display: inline-block;
+    }
     .vip-sender-text {
         font-family: 'Georgia', serif;
-        color: #00ffcc;
-        font-size: 1.2rem;
+        color: #ffffff;
+        font-size: 1.15rem;
         font-weight: bold;
         letter-spacing: 1px;
-        text-shadow: 0px 0px 8px rgba(0, 255, 204, 0.4);
+        text-shadow: 0px 0px 8px rgba(255, 255, 255, 0.3);
     }
     
     /* मुख्य हेडिंग जो धीरे-धीरे चमकते हुए अपना रंग बदलेगी */
@@ -133,16 +144,30 @@ custom_css = """
 """
 st.markdown(custom_css, unsafe_allow_html=True)
 
-# 3. जादुई नाम बदलने वाला कोड (URL Parameter)
+# 3. जादुई डबल नाम बदलने वाला कोड (URL Parameters)
 query_params = st.query_params
 sender = query_params.get("name", "")
+receiver = query_params.get("to", "") # यह नया वेरिएबल पाने वाले के नाम के लिए है
 
-# 4. अब आपका नाम और पूरा सही वाक्य बिना कटे सबसे ऊपर चमकेगा
-if sender:
+# 4. स्क्रीन पर सबसे ऊपर डबल नाम का पूरा सही वाक्य चमकेगा
+if sender and receiver:
     st.markdown(
         f"""
         <div class="vip-sender-box">
-            <span class="vip-sender-name">🎉 {sender} 🎉</span><br>
+            <span class="vip-name">🎉 {sender} 🎉</span><br>
+            <span class="vip-sender-text">की तरफ से</span><br>
+            <span class="vip-receiver-name">💖 {receiver} 💖</span><br>
+            <span class="vip-sender-text">को हैप्पी जन्माष्टमी</span>
+        </div>
+        """, 
+        unsafe_allow_html=True
+    )
+elif sender:
+    # अगर सिर्फ भेजने वाले का नाम हो, तो सिंगल नाम वाला वाक्य दिखेगा
+    st.markdown(
+        f"""
+        <div class="vip-sender-box">
+            <span class="vip-name">🎉 {sender} 🎉</span><br>
             <span class="vip-sender-text">की तरफ से आपको हैप्पी जन्माष्टमी</span>
         </div>
         """, 
