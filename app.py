@@ -3,54 +3,181 @@ import streamlit as st
 # 1. पेज की पूरी प्रीमियम सेटिंग
 st.set_page_config(page_title="Happy Janmashtami!", page_icon="🪈", layout="centered")
 
-# बैकग्राउंड कलर सेट करने के लिए छोटा कोड
-st.markdown("<style>.stApp {background: linear-gradient(135deg, #120024 0%, #2d004d 50%, #4d004d 100%) !important; color: white;}</style>", unsafe_allow_html=True)
-
-# मुख्य हेडिंग
-st.markdown("<h1 style='font-family:serif; color:#FFD700; text-align:center; text-shadow: 0px 0px 20px #ff6600, 0px 0px 10px #FFD700;'>✨ Happy Janmashtami ✨</h1>", unsafe_allow_html=True)
-
-# 2. यहाँ है वो एनिमेटेड कृष्ण जी का चेहरा, मोरपंख और बांसुरी (st.html के साथ)
-st.html("""
-<div style="display: flex; justify-content: center; align-items: center; margin: 20px auto; width: 100%; max-width: 340px; animation: floatAnim 3s ease-in-out infinite;">
-    <svg xmlns="http://w3.org" viewBox="0 0 400 450" width="100%" height="auto" style="border-radius: 25px; box-shadow: 0px 0px 35px #FFD700; background: radial-gradient(circle, #2d004d 40%, #120024 100%); padding: 15px;">
-        <circle cx="200" cy="200" r="130" fill="none" stroke="#FFD700" stroke-width="3" stroke-dasharray="8,8" opacity="0.5"/>
-        <circle cx="200" cy="200" r="145" fill="none" stroke="#ff6600" stroke-width="1.5" opacity="0.3"/>
-        <path d="M120,180 Q100,140 130,110 Q110,80 150,80 Q170,50 210,60 Q250,50 270,90 Q310,100 290,140 Q310,180 280,210 Q290,250 270,280" fill="none" stroke="#00e5ff" stroke-width="2.5" opacity="0.7"/>
-        <g transform="translate(230, 60) rotate(15)">
-            <path d="M0,0 Q-35,-45 0,-90 Q35,-45 0,0 Z" fill="#0099ff" stroke="#00ffcc" stroke-width="2"/>
-            <path d="M0,-15 Q-22,-47 0,-75 Q22,-47 0,-15 Z" fill="#00cc44"/>
-            <circle cx="0" cy="-40" r="14" fill="#ffe066"/>
-            <circle cx="0" cy="-40" r="8" fill="#0033cc"/>
-            <path d="M0,0 Q10,40 15,65" fill="none" stroke="#00ffcc" stroke-width="3"/>
-        </g>
-        <path d="M180,100 L185,160 L175,210 Q170,230 185,245 Q210,265 240,240 Q265,215 260,170" fill="none" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round"/>
-        <path d="M187,110 Q192,135 192,145 Q192,135 197,110 Z" fill="#FFD700" stroke="#ff6600" stroke-width="1"/>
-        <circle cx="192" cy="152" r="3" fill="#ff3333"/>
-        <path d="M145,150 Q165,140 182,153" fill="none" stroke="#00ffcc" stroke-width="2.5" stroke-linecap="round"/>
-        <path d="M195,152 Q215,138 235,148" fill="none" stroke="#00ffcc" stroke-width="2.5" stroke-linecap="round"/>
-        <path d="M152,163 Q168,175 180,165" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/>
-        <path d="M198,164 Q214,174 228,161" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/>
-        <path d="M187,222 Q200,230 215,220" fill="none" stroke="#ff3366" stroke-width="3.5" stroke-linecap="round"/>
-        <g transform="translate(210, 235) rotate(-12)">
-            <rect x="-110" y="-8" width="240" height="16" rx="8" fill="gold" stroke="#FFD700" stroke-width="2"/>
-            <circle cx="-70" cy="0" r="4" fill="#120024"/><circle cx="-40" cy="0" r="4" fill="#120024"/><circle cx="-10" cy="0" r="4" fill="#120024"/><circle cx="20" cy="0" r="4" fill="#120024"/><circle cx="50" cy="0" r="4" fill="#120024"/><circle cx="80" cy="0" r="4" fill="#120024"/>
-            <path d="M100,4 Q112,20 108,35" fill="none" stroke="#ff3333" stroke-width="3" stroke-linecap="round"/>
-            <circle cx="108" cy="38" r="4" fill="#FFD700"/>
-        </g>
-        <path d="M175,270 Q210,310 245,265" fill="none" stroke="#FFD700" stroke-width="2" stroke-dasharray="4,4"/>
-    </svg>
-</div>
+# 2. एडवांस CSS: प्रीमियम डार्क थीम, चमकती हेडिंग और स्मूथ फ्लोटिंग एनीमेशन
+custom_css = """
 <style>
-    @keyframes floatAnim {
-        0% { transform: translateY(0px); }
-        50% { transform: translateY(-15px); }
-        100% { transform: translateY(0px); }
+    /* ऐप का शानदार डार्क फेस्टिवल बैकग्राउंड */
+    .stApp {
+        background: linear-gradient(135deg, #120024 0%, #2d004d 50%, #4d004d 100%) !important;
+        color: #ffffff;
+    }
+    
+    /* मुख्य चमकती हुई हेडिंग */
+    .main-title {
+        font-family: 'Georgia', serif;
+        color: #FFD700;
+        text-align: center;
+        font-size: 2.8rem;
+        font-weight: bold;
+        text-shadow: 0px 0px 15px #ff6600, 0px 0px 5px #FFD700;
+        margin-top: 10px;
+        margin-bottom: 20px;
+    }
+    
+    /* नीचे का बधाई संदेश */
+    .sub-title {
+        font-family: 'Georgia', serif;
+        color: #00FFCC;
+        text-align: center;
+        font-size: 1.3rem;
+        line-height: 1.8;
+        margin-top: 25px;
+        text-shadow: 1px 1px 5px #000;
+    }
+
+    /* कृष्ण डिज़ाइन बॉक्स (Floating Effect) */
+    .krishna-box {
+        width: 280px;
+        height: 280px;
+        margin: 20px auto;
+        background: radial-gradient(circle, #3d0066 30%, #120024 100%);
+        border-radius: 50%;
+        border: 4px solid #FFD700;
+        box-shadow: 0px 0px 30px #FFD700;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        animation: floatMotion 3s ease-in-out infinite;
+    }
+
+    /* मोरपंख (Pure CSS) */
+    .peacock-feather {
+        width: 35px;
+        height: 60px;
+        background: linear-gradient(#00ccff, #0033cc);
+        border-radius: 50% 50% 20% 20%;
+        box-shadow: 0px 0px 15px #00ffcc, inset 0 0 10px #00ff00;
+        position: absolute;
+        top: 25px;
+        transform: rotate(15deg);
+        z-index: 2;
+    }
+    .peacock-feather::before {
+        content: '';
+        position: absolute;
+        width: 14px;
+        height: 25px;
+        background: #ffcc00;
+        border-radius: 50%;
+        top: 12px;
+        left: 10px;
+        box-shadow: 0 0 5px #ff6600;
+    }
+
+    /* सोने का मुकुट (Crown - Pure CSS) */
+    .krishna-crown {
+        width: 80px;
+        height: 50px;
+        background: linear-gradient(135deg, #ffe066, #b38600);
+        clip-path: polygon(0% 100%, 20% 40%, 40% 0%, 50% 50%, 60% 0%, 80% 40%, 100% 100%);
+        box-shadow: 0px 0px 15px #FFD700;
+        position: absolute;
+        top: 75px;
+        border-radius: 5px;
+    }
+
+    /* तिलक (Tilak) */
+    .tilak {
+        width: 10px;
+        height: 35px;
+        background: #ff3333;
+        border-radius: 0 0 5px 5px;
+        position: absolute;
+        top: 130px;
+        box-shadow: 0 0 8px #ff3333;
+    }
+    .tilak::before {
+        content: '';
+        position: absolute;
+        width: 16px;
+        height: 25px;
+        border: 2px solid #FFD700;
+        border-top: none;
+        border-radius: 0 0 8px 8px;
+        left: -5px;
+        top: -5px;
+    }
+
+    /* सुनहरी बांसुरी (Pure CSS) */
+    .golden-flute {
+        width: 220px;
+        height: 14px;
+        background: linear-gradient(to bottom, #ffe066, #b38600);
+        border-radius: 7px;
+        box-shadow: 0px 0px 15px #FFD700;
+        position: absolute;
+        bottom: 50px;
+        transform: rotate(-8deg);
+    }
+    /* बांसुरी के छेद */
+    .flute-holes {
+        position: absolute;
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        padding: 0 25px;
+        box-sizing: border-box;
+        top: 4px;
+    }
+    .hole {
+        width: 6px;
+        height: 6px;
+        background: #120024;
+        border-radius: 50%;
+    }
+
+    /* ऊपर-नीचे होने वाला स्मूथ मोशन */
+    @keyframes floatMotion {
+        0% { transform: translateY(0px) rotate(0deg); }
+        50% { transform: translateY(-15px) rotate(1deg); }
+        100% { transform: translateY(0px) rotate(0deg); }
     }
 </style>
-""")
+"""
+st.markdown(custom_css, unsafe_allow_html=True)
 
-# नीचे का बधाई संदेश
-st.markdown("<p style='font-family:serif; color:#00FFCC; text-align:center; font-size:1.3rem; line-height:1.8; text-shadow: 1px 1px 5px #000;'>माखन चोर नन्द किशोर, बांधे जिसने प्रीत की डोर...<br>हरे कृष्णा! 🌸🪈</p>", unsafe_allow_html=True)
+# 3. स्क्रीन पर सबसे ऊपर "Happy Janmashtami" लिखना
+st.markdown("<h1 class='main-title'>✨ Happy Janmashtami ✨</h1>", unsafe_allow_html=True)
 
-# बैलून इफ़ेक्ट
+# 4. बिना किसी बाहरी इमेज के शुद्ध कोड से बना सुंदर कृष्ण कलाकृति बॉक्स
+st.markdown(
+    """
+    <div class="krishna-box">
+        <div class="peacock-feather"></div>
+        <div class="krishna-crown"></div>
+        <div class="tilak"></div>
+        <div class="golden-flute">
+            <div class="flute-holes">
+                <div class="hole"></div>
+                <div class="hole"></div>
+                <div class="hole"></div>
+                <div class="hole"></div>
+                <div class="hole"></div>
+                <div class="hole"></div>
+            </div>
+        </div>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
+# 5. नीचे का सुंदर मैसेज
+st.markdown(
+    "<p class='sub-title'>माखन चोर नन्द किशोर, बांधे जिसने प्रीत की डोर...<br>हरे कृष्णा! 🌸🪈</p>", 
+    unsafe_allow_html=True
+)
+
+# 6. ऐप खुलते ही गुब्बारे उड़ाना
 st.balloons()
