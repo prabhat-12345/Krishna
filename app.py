@@ -4,14 +4,15 @@ import os
 # 1. पेज की पूरी प्रीमियम VLVIP सेटिंग (मोबाइल स्क्रीन पर स्क्रॉल बार छिपाने के लिए)
 st.set_page_config(page_title="Happy Janmashtami!", page_icon="🪈", layout="centered")
 
-# 2. एडवांस CSS: लाइटवेट नियॉन ग्लो, घूमता बॉर्डर और एनिमेटेड टेक्स्ट (No Screen Crash)
+# 2. एडवांस CSS: घूमता बॉर्डर, चमकता टेक्स्ट और लाइव तैरते हुए सितारे (Stars Particles)
 custom_css = """
 <style>
     /* ऐप का शानदार डार्क और मॉडर्न फेस्टिव बैकग्राउंड */
     .stApp {
-        background: linear-gradient(135deg, #0d001a 0%, #1a0033 50%, #2d004d 100%) !important;
+        background: linear-gradient(135deg, #090014 0%, #15002a 50%, #26004d 100%) !important;
         color: #ffffff;
         overflow: hidden !important;
+        position: relative;
     }
     
     /* मुख्य कंटेनर को मोबाइल स्क्रीन की हाइट में फिट करने के लिए */
@@ -19,9 +20,42 @@ custom_css = """
         padding-top: 0.8rem !important;
         padding-bottom: 0rem !important;
         max-width: 450px !important;
+        position: relative;
+        z-index: 10;
     }
     
-    /* मुख्य हेडिंग जो धीरे-धीरे चमकते हुए अपना रंग बदलेगी (Animated Gradient Text) */
+    /* जादू: लाइव स्क्रीन पर धीरे-धीरे तैरने वाले सितारे (Pure CSS Floating Stars Particles) */
+    .stars-particle-container {
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+        pointer-events: none;
+        z-index: 1;
+        overflow: hidden;
+    }
+    .particle-star {
+        position: absolute;
+        background: radial-gradient(circle, #FFD700 20%, transparent 70%);
+        border-radius: 50%;
+        opacity: 0.6;
+        animation: floatUp linear infinite;
+        box-shadow: 0 0 10px #FFD700, 0 0 20px #ff6600;
+    }
+    /* अलग-अलग तारों की पोजीशन, साइज और तैरने की स्पीड */
+    .s1 { left: 15%; top: 90%; width: 4px; height: 4px; animation-duration: 7s; }
+    .s2 { left: 40%; top: 85%; width: 6px; height: 6px; animation-duration: 9s; animation-delay: 2s; }
+    .s3 { left: 70%; top: 95%; width: 5px; height: 5px; animation-duration: 6s; animation-delay: 1s; }
+    .s4 { left: 85%; top: 80%; width: 7px; height: 7px; animation-duration: 10s; animation-delay: 3s; }
+    .s5 { left: 25%; top: 75%; width: 5px; height: 5px; animation-duration: 8s; animation-delay: 0.5s; }
+    .s6 { left: 60%; top: 88%; width: 4px; height: 4px; animation-duration: 7s; animation-delay: 1.5s; }
+
+    @keyframes floatUp {
+        0% { transform: translateY(100px) scale(0.5); opacity: 0; }
+        30% { opacity: 0.8; }
+        90% { opacity: 0.8; }
+        100% { transform: translateY(-100vh) scale(1.2); opacity: 0; }
+    }
+    
+    /* मुख्य हेडिंग जो धीरे-धीरे चमकते हुए अपना रंग बदलेगी */
     .main-title {
         font-family: 'Georgia', serif;
         text-align: center;
@@ -125,7 +159,6 @@ custom_css = """
         animation: textShine 3s linear infinite;
     }
 
-    /* सभी एनीमेशन के नियम */
     @keyframes borderRotate {
         0% { background-position: 0% 50%; }
         50% { background-position: 100% 50%; }
@@ -141,14 +174,29 @@ custom_css = """
 """
 st.markdown(custom_css, unsafe_allow_html=True)
 
-# 3. जादुई नाम बदलने वाला कोड (URL Prompt Link)
+# 3. लाइव तैरने वाले सुनहरे तारों (Stars Particles) का ढांचा
+st.markdown(
+    """
+    <div class="stars-particle-container">
+        <div class="particle-star s1"></div>
+        <div class="particle-star s2"></div>
+        <div class="particle-star s3"></div>
+        <div class="particle-star s4"></div>
+        <div class="particle-star s5"></div>
+        <div class="particle-star s6"></div>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
+# 4. जादुई नाम बदलने वाला कोड (URL Prompt Link)
 query_params = st.query_params
 sender = query_params.get("name", "")
 
-# 4. स्क्रीन पर सबसे ऊपर "Happy Janmashtami" हेडिंग
+# 5. स्क्रीन पर सबसे ऊपर "Happy Janmashtami" हेडिंग
 st.markdown("<h1 class='main-title'>✨ Happy Janmashtami ✨</h1>", unsafe_allow_html=True)
 
-# 5. अगर किसी ने अपना नाम लिंक में भेजा है तो वह यहाँ चमकेगा
+# 6. अगर किसी ने अपना नाम लिंक में भेजा है तो वह यहाँ चमकेगा
 if sender:
     st.markdown(
         f"""
@@ -160,7 +208,7 @@ if sender:
         unsafe_allow_html=True
     )
 
-# 6. आपकी वही असली सुंदर फोटो 'images (52).jpeg' (अब घूमते हुए नियॉन लाइट फ्रेम में बंद है)
+# 7. आपकी वही असली सुंदर फोटो 'images (52).jpeg'
 image_path = "images (52).jpeg"
 
 if os.path.exists(image_path):
@@ -168,7 +216,7 @@ if os.path.exists(image_path):
 else:
     st.warning("कृपया पेज को एक बार रिफ्रेश करें।")
 
-# 7. नीचे का पूरी तरह से चमकता हुआ एनिमेटेड शुभकामनाएं बॉक्स
+# 8. नीचे का पूरी तरह से शुभकामनाएं बॉक्स
 st.markdown(
     """
     <div class="wishes-container">
