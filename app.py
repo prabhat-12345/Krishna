@@ -1,53 +1,56 @@
 import streamlit as st
 import os
 
-# 1. पेज की पूरी प्रीमियम सेटिंग
+# 1. पेज की पूरी प्रीमियम VLVIP सेटिंग
 st.set_page_config(page_title="Happy Janmashtami!", page_icon="🪈", layout="centered")
 
-# 2. बैकग्राउंड कलर और फोटो को ऊपर-नीचे (Floating) एनिमेट करने के लिए CSS
+# 2. एडवांस CSS: पीला रंग हटाकर सुपर प्रीमियम नियॉन ग्लो और मॉडर्न डिज़ाइन इफेक्ट्स
 custom_css = """
 <style>
-    /* ऐप का डार्क फेस्टिवल बैकग्राउंड */
+    /* ऐप का शानदार डार्क और मॉडर्न फेस्टिव बैकग्राउंड */
     .stApp {
-        background: linear-gradient(135deg, #120024 0%, #330033 50%, #4d004d 100%) !important;
+        background: linear-gradient(135deg, #0d001a 0%, #1a0033 50%, #2d004d 100%) !important;
         color: #ffffff;
     }
     
-    /* मुख्य चमकती हेडिंग */
+    /* मुख्य चमकती हुई मॉडर्न हेडिंग */
     .main-title {
         font-family: 'Georgia', serif;
-        color: #FFD700;
+        color: #ffffff;
         text-align: center;
         font-size: 3rem;
         font-weight: bold;
-        text-shadow: 0px 0px 20px #ff6600, 0px 0px 10px #FFD700;
-        margin-top: 15px;
+        text-shadow: 0px 0px 10px #ff007f, 0px 0px 20px #ff007f, 0px 0px 30px #9900ff;
+        margin-top: 20px;
         margin-bottom: 25px;
+        letter-spacing: 2px;
     }
     
-    /* नीचे का बधाई संदेश */
+    /* नीचे का सुंदर और साफ बधाई संदेश */
     .sub-title {
         font-family: 'Georgia', serif;
-        color: #00FFCC;
+        color: #00ffcc;
         text-align: center;
         font-size: 1.4rem;
         line-height: 1.8;
-        margin-top: 30px;
-        text-shadow: 1px 1px 8px #000000;
+        margin-top: 35px;
+        text-shadow: 0px 0px 10px rgba(0, 255, 204, 0.5);
+        font-weight: 500;
     }
 
-    /* इमेज के चारों तरफ प्रीमियम बॉर्डर और तैरने वाला (Floating) एनीमेशन */
+    /* पीले बॉर्डर को हटाकर प्रीमियम नियॉन पिंक/पर्पल ग्लो और स्मूथ फ्लोटिंग */
     .stImage img {
         border-radius: 25px !important;
-        box-shadow: 0px 0px 35px #FFD700, 0px 0px 15px #ff6600 !important;
-        border: 4px solid #FFD700 !important;
-        animation: floatMotion 3s ease-in-out infinite !important;
+        box-shadow: 0px 0px 30px #ff007f, 0px 0px 15px #9900ff !important;
+        border: 2px solid rgba(255, 0, 127, 0.4) !important;
+        animation: superFloat 4s ease-in-out infinite !important;
     }
 
-    /* स्मूथ ऊपर-नीचे होने का मोशन */
-    @keyframes floatMotion {
-        0% { transform: translateY(0px); }
-        50% { transform: translateY(-18px); }
+    /* और भी ज़्यादा स्मूथ और वीआईपी ऊपर-नीचे तैरने का मोशन */
+    @keyframes superFloat {
+        0% { transform: translateY(0px) scale(1); }
+        50% { transform: translateY(-15px) scale(1.01); }
+        100% { transform: translateY(0px) scale(1); }
     }
 </style>
 """
@@ -64,7 +67,7 @@ if os.path.exists(image_path):
 else:
     st.warning("कृपया ऐप को लोड होने के लिए 5 सेकंड का समय दें या पेज को एक बार रिफ्रेश करें।")
 
-# 5. नीचे का सुंदर संदेश
+# 5. नीचे का सुंदर VIP संदेश
 st.markdown(
     "<p class='sub-title'>माखन चोर नन्द किशोर, बांधे जिसने प्रीत की डोर...<br>हरे कृष्णा! 🌸🪈</p>", 
     unsafe_allow_html=True
