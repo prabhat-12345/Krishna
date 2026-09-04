@@ -157,5 +157,5 @@ krishna_img_data = (
     "fZb+3O9Zut/z9HulP7M/vV73v9H7Zpvu71/b0vtT+jP9/f/p7+n6P6ffr/U9pf6PpeevX/v7XvXe"
     "Tfd/at7Pvvb3S++f7ptNvy/9P8y/vveF/+38m3O/A/gD4C3gVeDPgDfoXg//7f3v39/3C/7b0vs6"
     "fS79Xuu6TfubrnWp9f4Npeem663XvP8N0+fUZ0z9Nvx/qT+lr7XmX7b3O6Wfk37v9f+W/p7Tfe9M"
-    "v/eM93Oavv8yvW+ZntO7fofSvdW/lPru/f0P6v7/9PvWe39Ruu/0vN/99b6/b/7XfN+6b0qvl/I1"
+    "v/eM93Oavv8yvW+ZntO7fofSvdW/lPru/f0P6v7/9PvWe39Ruu/0vN/99b6/b/7XfN+6b0qvl/I1" )
     
