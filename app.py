@@ -14,17 +14,17 @@ custom_css = """
         overflow: hidden !important;
     }
     
-    /* मुख्य कंटेनर को मोबाइल स्क्रीन की HEIGHT में फिट करने के लिए */
+    /* मुख्य कंटेनर: नाम ऊपर से न कटे इसलिए padding-top को बढ़ाकर 2.5rem कर दिया है */
     .block-container {
-        padding-top: 0.6rem !important;
+        padding-top: 2.5rem !important;
         padding-bottom: 0rem !important;
         max-width: 450px !important;
     }
 
-    /* जादू 1: सबसे ऊपर दिखने वाला नाम और पूरा सही वाक्य (PRABHAT की तरफ से आपको हैप्पी जन्माष्टमी) */
+    /* सबसे ऊपर दिखने वाला नाम और पूरा सही वाक्य (नाम अब ऊपर से बिल्कुल नहीं कटेगा) */
     .vip-sender-box {
         text-align: center;
-        margin-top: 5px;
+        margin-top: 10px;
         margin-bottom: 15px;
         line-height: 1.4;
     }
@@ -48,14 +48,14 @@ custom_css = """
         text-shadow: 0px 0px 8px rgba(0, 255, 204, 0.4);
     }
     
-    /* मुख्य हेडिंग जो धीरे-धीरे चमकते हुए अपना रंग बदलेगी (Animated Gradient Text) */
+    /* मुख्य हेडिंग जो धीरे-धीरे चमकते हुए अपना रंग बदलेगी */
     .main-title {
         font-family: 'Georgia', serif;
         text-align: center;
         font-size: 2.3rem;
         font-weight: bold;
         letter-spacing: 1px;
-        margin-top: 0px;
+        margin-top: 5px;
         margin-bottom: 8px;
         background: linear-gradient(to right, #ff007f, #FFD700, #00ffcc, #ff007f);
         background-size: 200% auto;
@@ -74,7 +74,7 @@ custom_css = """
         100% { filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.8)); }
     }
     
-    /* इमेज के चारों तरफ का वीआईपी नियॉन बॉर्डर जो लगातार अपनी चमक और रंग बदलेगा (Pulse & Rotate Glow) */
+    /* इमेज के चारों तरफ का वीआईपी नियॉन बॉर्डर जो लगातार अपनी चमक और रंग बदलेगा */
     .stImage img {
         display: block;
         margin-left: auto;
@@ -86,7 +86,7 @@ custom_css = """
         animation: superFloat 4s ease-in-out infinite, photoGlow 3s ease-in-out infinite alternate !important;
     }
 
-    /* नीचे का प्रीमियम शुभकामनाएं बॉक्स जिसके टेक्स्ट अब सोने की लहर की तरह लाइव चमकेंगे (Shining Quotes) */
+    /* नीचे का शुभकामनाएं बॉक्स जिसके टेक्स्ट अब सोने की लहर की तरह लाइव चमकेंगे */
     .wishes-container {
         background: rgba(255, 255, 255, 0.04);
         border-radius: 15px;
@@ -137,7 +137,7 @@ st.markdown(custom_css, unsafe_allow_html=True)
 query_params = st.query_params
 sender = query_params.get("name", "")
 
-# 4. फिक्स: अब आपका नाम और पूरा सही वाक्य सबसे ऊपर (Top पर) चमकेगा
+# 4. अब आपका नाम और पूरा सही वाक्य बिना कटे सबसे ऊपर चमकेगा
 if sender:
     st.markdown(
         f"""
@@ -149,7 +149,7 @@ if sender:
         unsafe_allow_html=True
     )
 
-# 5. मुख्य हेडिंग अब नाम के नीचे आएगी
+# 5. मुख्य हेडिंग
 st.markdown("<h1 class='main-title'>✨ Happy Janmashtami ✨</h1>", unsafe_allow_html=True)
 
 # 6. आपकी वही असली सुंदर फोटो 'images (52).jpeg'
@@ -172,6 +172,5 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# 8. आसमान से चमकीले सितारों की बारिश (100% सुरक्षित और हल्का)
+# 8. आसमान से चमकीले सितारों की बारिश
 st.snow()
-
