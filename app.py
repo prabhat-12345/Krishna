@@ -16,49 +16,62 @@ custom_css = """
     
     /* मुख्य कंटेनर को मोबाइल स्क्रीन की HEIGHT में फिट करने के लिए */
     .block-container {
-        padding-top: 0.8rem !important;
+        padding-top: 0.6rem !important;
         padding-bottom: 0rem !important;
         max-width: 450px !important;
+    }
+
+    /* जादू 1: सबसे ऊपर दिखने वाला नाम और पूरा सही वाक्य (PRABHAT की तरफ से आपको हैप्पी जन्माष्टमी) */
+    .vip-sender-box {
+        text-align: center;
+        margin-top: 5px;
+        margin-bottom: 15px;
+        line-height: 1.4;
+    }
+    .vip-sender-name {
+        font-family: 'Georgia', serif;
+        font-size: 2.2rem;
+        font-weight: bold;
+        text-transform: uppercase;
+        background: linear-gradient(45deg, #FFD700, #ffaa00);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 0px 0px 15px rgba(255, 170, 0, 0.6);
+        display: inline-block;
+    }
+    .vip-sender-text {
+        font-family: 'Georgia', serif;
+        color: #00ffcc;
+        font-size: 1.2rem;
+        font-weight: bold;
+        letter-spacing: 1px;
+        text-shadow: 0px 0px 8px rgba(0, 255, 204, 0.4);
     }
     
     /* मुख्य हेडिंग जो धीरे-धीरे चमकते हुए अपना रंग बदलेगी (Animated Gradient Text) */
     .main-title {
         font-family: 'Georgia', serif;
         text-align: center;
-        font-size: 2.5rem;
+        font-size: 2.3rem;
         font-weight: bold;
         letter-spacing: 1px;
-        margin-top: 5px;
-        margin-bottom: 5px;
+        margin-top: 0px;
+        margin-bottom: 8px;
         background: linear-gradient(to right, #ff007f, #FFD700, #00ffcc, #ff007f);
         background-size: 200% auto;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         animation: textShine 4s linear infinite, headingGlow 2s ease-in-out infinite alternate;
     }
-
-    /* जिसने भेजा है उसका नाम दिखाने के लिए VIP शाइनिंग स्टाइल */
-    .sender-box {
-        text-align: center;
-        margin-bottom: 10px;
+    
+    @keyframes textShine {
+        0% { background-position: 0% center; }
+        100% { background-position: 200% center; }
     }
-    .sender-name {
-        font-family: 'Georgia', serif;
-        font-size: 1.8rem;
-        font-weight: bold;
-        text-transform: uppercase;
-        background: linear-gradient(45deg, #FFD700, #ffaa00);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        text-shadow: 0px 0px 12px rgba(255, 170, 0, 0.6);
-        margin-bottom: 2px;
-    }
-    .sender-suffix {
-        font-family: 'Georgia', serif;
-        color: #00ffcc;
-        font-size: 1.05rem;
-        letter-spacing: 1px;
-        text-transform: uppercase;
+    
+    @keyframes headingGlow {
+        0% { filter: drop-shadow(0 0 5px rgba(255, 0, 127, 0.6)); }
+        100% { filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.8)); }
     }
     
     /* इमेज के चारों तरफ का वीआईपी नियॉन बॉर्डर जो लगातार अपनी चमक और रंग बदलेगा (Pulse & Rotate Glow) */
@@ -66,7 +79,7 @@ custom_css = """
         display: block;
         margin-left: auto;
         margin-right: auto;
-        max-height: 275px !important;
+        max-height: 265px !important;
         width: auto !important;
         border-radius: 20px !important;
         border: 2px solid rgba(255, 0, 127, 0.4) !important;
@@ -106,17 +119,6 @@ custom_css = """
         animation: textShine 3s linear infinite;
     }
 
-    /* सभी एनीमेशन के सीक्रेट रूल्स */
-    @keyframes textShine {
-        0% { background-position: 0% center; }
-        100% { background-position: 200% center; }
-    }
-    
-    @keyframes headingGlow {
-        0% { filter: drop-shadow(0 0 5px rgba(255, 0, 127, 0.6)); }
-        100% { filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.8)); }
-    }
-
     @keyframes photoGlow {
         0% { box-shadow: 0px 0px 15px #ff007f, 0px 0px 5px #9900ff !important; }
         100% { box-shadow: 0px 0px 35px #FFD700, 0px 0px 15px #ff6600 !important; }
@@ -124,7 +126,7 @@ custom_css = """
 
     @keyframes superFloat {
         0% { transform: translateY(0px); }
-        50% { transform: translateY(-12px); }
+        50% { transform: translateY(-10px); }
         100% { transform: translateY(0px); }
     }
 </style>
@@ -135,20 +137,20 @@ st.markdown(custom_css, unsafe_allow_html=True)
 query_params = st.query_params
 sender = query_params.get("name", "")
 
-# 4. एनिमेटेड हेडिंग
-st.markdown("<h1 class='main-title'>✨ Happy Janmashtami ✨</h1>", unsafe_allow_html=True)
-
-# 5. फिक्स: अब आपका नाम पहले आएगा और "की तरफ से आपको" बाद में दिखेगा
+# 4. फिक्स: अब आपका नाम और पूरा सही वाक्य सबसे ऊपर (Top पर) चमकेगा
 if sender:
     st.markdown(
         f"""
-        <div class="sender-box">
-            <span class="sender-name">🎉 {sender} 🎉</span><br>
-            <span class="sender-prefix">की तरफ से आपको</span>
+        <div class="vip-sender-box">
+            <span class="vip-sender-name">🎉 {sender} 🎉</span><br>
+            <span class="vip-sender-text">की तरफ से आपको हैप्पी जन्माष्टमी</span>
         </div>
         """, 
         unsafe_allow_html=True
     )
+
+# 5. मुख्य हेडिंग अब नाम के नीचे आएगी
+st.markdown("<h1 class='main-title'>✨ Happy Janmashtami ✨</h1>", unsafe_allow_html=True)
 
 # 6. आपकी वही असली सुंदर फोटो 'images (52).jpeg'
 image_path = "images (52).jpeg"
@@ -158,7 +160,7 @@ if os.path.exists(image_path):
 else:
     st.warning("कृपया पेज को एक बार रिफ्रेश करें।")
 
-# 7. नीचे का पूरी तरह से चमकता हुआ एनिमेटेड शुभकामनाएं बॉक्स
+# 7. नीचे का शुभकामनाएं बॉक्स
 st.markdown(
     """
     <div class="wishes-container">
@@ -172,3 +174,4 @@ st.markdown(
 
 # 8. आसमान से चमकीले सितारों की बारिश (100% सुरक्षित और हल्का)
 st.snow()
+
