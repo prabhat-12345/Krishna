@@ -1,122 +1,148 @@
 import streamlit as st
 import os
 
-# 1. पेज की पूरी प्रीमियम VLVIP सेटिंग
+# 1. पेज की पूरी प्रीमियम VLVIP सेटिंग (मोबाइल स्क्रीन पर स्क्रॉल बार छिपाने के लिए)
 st.set_page_config(page_title="Happy Janmashtami!", page_icon="🪈", layout="centered")
 
-# 2. एडवांस CSS: शाही डार्क गोल्ड और नियॉन मैजेंटा थीम
+# 2. एडवांस CSS: फुल-स्क्रीन फिटिंग (No Scroll), प्रीमियम नियॉन गोल्ड और क्लासी टेक्स्ट डिजाइन
 custom_css = """
 <style>
-    /* ऐप का प्रीमियम और गहरा रॉयल फेस्टिव बैकग्राउंड */
+    /* ऐप का प्रीमियम और गहरा रॉयल फेस्टिव बैकग्राउंड - स्क्रॉलिंग पूरी तरह बंद */
     .stApp {
         background: linear-gradient(135deg, #090014 0%, #15002a 50%, #26004d 100%) !important;
         color: #ffffff;
+        overflow: hidden !important;
     }
     
-    /* मुख्य चमकती हुई मॉडर्न हेडिंग */
+    /* मुख्य कंटेनर को मोबाइल स्क्रीन की हाइट में फिट करने के लिए */
+    .block-container {
+        padding-top: 1rem !important;
+        padding-bottom: 0rem !important;
+        max-width: 450px !important;
+    }
+    
+    /* मुख्य चमकती हुई हेडिंग */
     .main-title {
         font-family: 'Georgia', serif;
         color: #FFFFFF;
         text-align: center;
-        font-size: 3.2rem;
+        font-size: 2.3rem;
         font-weight: bold;
-        text-shadow: 0px 0px 10px #ff007f, 0px 0px 25px #ff007f, 0px 0px 40px #9900ff;
-        margin-top: 15px;
-        margin-bottom: 5px;
-        letter-spacing: 2px;
+        text-shadow: 0px 0px 10px #ff007f, 0px 0px 20px #ff007f;
+        margin-top: 5px;
+        margin-bottom: 2px;
+        letter-spacing: 1px;
     }
 
-    /* जिसने भेजा है उसका नाम दिखाने के लिए VIP स्टाइल */
-    .sender-name {
-        font-family: 'Georgia', serif;
-        color: #FFD700;
+    /* जिसने भेजा है उसका नाम दिखाने के लिए VIP शाइनिंग स्टाइल */
+    .sender-box {
         text-align: center;
-        font-size: 1.8rem;
-        font-weight: bold;
-        text-transform: uppercase;
-        text-shadow: 0px 0px 15px #ff6600;
-        margin-bottom: 25px;
-        background: linear-gradient(45deg, #FFD700, #ff6600);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+        margin-bottom: 10px;
     }
-    
-    /* नीचे का सुंदर और साफ बधाई संदेश बॉक्स */
-    .wishes-container {
-        background: rgba(255, 255, 255, 0.05);
-        border-radius: 20px;
-        padding: 20px;
-        margin-top: 30px;
-        border: 1px solid rgba(255, 0, 127, 0.2);
-        box-shadow: 0px 0px 20px rgba(153, 0, 255, 0.2);
-    }
-
-    .wish-text {
+    .sender-prefix {
         font-family: 'Georgia', serif;
         color: #00ffcc;
-        text-align: center;
-        font-size: 1.25rem;
-        line-height: 1.8;
-        text-shadow: 0px 0px 8px rgba(0, 255, 204, 0.3);
-        margin-bottom: 15px;
+        font-size: 1rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
     }
-
-    .wish-highlight {
-        color: #FFD700;
+    .sender-name {
+        font-family: 'Georgia', serif;
+        font-size: 1.6rem;
         font-weight: bold;
-        text-shadow: 0px 0px 5px #ff6600;
+        text-transform: uppercase;
+        background: linear-gradient(45deg, #FFD700, #ffaa00);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 0px 0px 10px rgba(255, 170, 0, 0.5);
     }
-
-    /* इमेज के चारों तरफ का वीआईपी नियॉन ग्लो और 3D फ्लोटिंग */
+    
+    /* इमेज के चारों तरफ का वीआईपी नियॉन ग्लो और 3D फ्लोटिंग - साइज मोबाइल के लिए फिक्स */
     .stImage img {
-        border-radius: 25px !important;
-        box-shadow: 0px 0px 35px #ff007f, 0px 0px 15px #9900ff !important;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        max-height: 280px !important;
+        width: auto !important;
+        border-radius: 20px !important;
+        box-shadow: 0px 0px 25px #ff007f, 0px 0px 10px #9900ff !important;
         border: 2px solid rgba(255, 0, 127, 0.3) !important;
         animation: superFloat 4s ease-in-out infinite !important;
     }
 
-    /* और भी ज़्यादा स्मूथ ऊपर-नीचे तैरने का मोशन */
+    /* नीचे का प्रीमियम और बिल्कुल साफ स्टैंडर्ड शुभकामनाएं (Best Wishes) बॉक्स */
+    .wishes-container {
+        background: rgba(255, 255, 255, 0.04);
+        border-radius: 15px;
+        padding: 12px;
+        margin-top: 15px;
+        border: 1px solid rgba(255, 0, 127, 0.15);
+        box-shadow: 0px 0px 15px rgba(153, 0, 255, 0.15);
+        text-align: center;
+    }
+
+    .wish-text {
+        font-family: 'Georgia', serif;
+        color: #ffffff;
+        font-size: 1.05rem;
+        line-height: 1.6;
+        margin-bottom: 8px;
+    }
+    
+    .wish-highlight {
+        color: #FFD700;
+        font-weight: bold;
+        text-shadow: 0px 0px 5px rgba(255, 215, 0, 0.4);
+    }
+
+    /* रिस्पॉन्सिव हाइट मोशन */
     @keyframes superFloat {
-        0% { transform: translateY(0px) scale(1); }
-        50% { transform: translateY(-15px) scale(1.01); }
-        100% { transform: translateY(0px) scale(1); }
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-10px); }
+        100% { transform: translateY(0px); }
     }
 </style>
 """
 st.markdown(custom_css, unsafe_allow_html=True)
 
 # 3. जादुई नाम बदलने वाला कोड (URL Prompt Link)
-# अगर लिंक ऐसा होगा: https:// तो स्क्रीन पर Rahul का नाम दिखेगा
 query_params = st.query_params
 sender = query_params.get("name", "")
 
 # 4. स्क्रीन पर सबसे ऊपर "Happy Janmashtami" हेडिंग
 st.markdown("<h1 class='main-title'>✨ Happy Janmashtami ✨</h1>", unsafe_allow_html=True)
 
-# अगर किसी ने अपना नाम लिंक में भेजा है तो वह यहाँ चमकेगा
+# 5. अगर किसी ने अपना नाम लिंक में भेजा है तो वह यहाँ चमकेगा
 if sender:
-    st.markdown(f"<div class='sender-name'>👉 की तरफ से आपको 👈</div>", unsafe_allow_html=True)
-    st.markdown(f"<div class='sender-name'>🎉 {sender} 🎉</div>", unsafe_allow_html=True)
+    st.markdown(
+        f"""
+        <div class="sender-box">
+            <span class="sender-prefix">की तरफ से आपको</span><br>
+            <span class="sender-name">🎉 {sender} 🎉</span>
+        </div>
+        """, 
+        unsafe_allow_html=True
+    )
 
-# 5. तुम्हारी वही असली सुंदर फोटो 'images (52).jpeg'
+# 6. तुम्हारी वही असली सुंदर फोटो 'images (52).jpeg' (अब बिल्कुल परफेक्ट हाइट में)
 image_path = "images (52).jpeg"
 
 if os.path.exists(image_path):
-    st.image(image_path, use_container_width=True)
+    st.image(image_path, use_container_width=False)
 else:
-    st.warning("कृपया ऐप को लोड होने के लिए 5 सेकंड का समय दें या पेज को एक बार रिफ्रेश करें।")
+    st.warning("कृपया पेज को एक बार रिफ्रेश करें।")
 
-# 6. नीचे का बिल्कुल नया और प्रीमियम शुभकामनाएं (Best Wishes) बॉक्स
+# 7. नीचे का बिल्कुल नया, स्टैंडर्ड और प्रीमियम शुभकामनाएं (Best Wishes) बॉक्स
 st.markdown(
     """
     <div class="wishes-container">
-        <p class="wish-text">🌸 माखन चोर नन्द किशोर, बांधे जिसने प्रीत की डोर...<br>हरे कृष्णा! 🪈</p>
-        <p class="wish-text"><span class="wish-highlight">✨ श्री कृष्ण के कदम आपके घर आएं...</span><br>आप खुशियों के दीप जलाएं, परेशानी आपसे आंखें चुराए! 🦚</p>
-        <p class="wish-text">💫 May Lord Krishna steal all your tensions and fill your life with <span class="wish-highlight">Love, Peace, and Happiness!</span> 🌟</p>
+        <p class="wish-text">🌸 माखन चोर नन्द किशोर, बांधे जिसने प्रीत की डोर... <span class="wish-highlight">हरे कृष्णा! 🪈</span></p>
+        <p class="wish-text">✨ श्री कृष्ण के कदम आपके घर आएं, आप खुशियों के दीप जलाएं! <span class="wish-highlight">शुभ जन्माष्टमी 🦚</span></p>
+        <p class="wish-text" style="font-size: 0.95rem; color: #00ffcc; margin-bottom: 0;">May Lord Krishna fill your life with Love, Peace, and Happiness! 🌟</p>
     </div>
     """, 
     unsafe_allow_html=True
 )
 
-# 7. ऐप खुलते ही स्क्रीन पर गुब्बारे उड़ाना
+# 8. ऐप खुलते ही स्क्रीन पर गुब्बारे उड़ाना
 st.balloons()
