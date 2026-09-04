@@ -4,44 +4,47 @@ import os
 # 1. पेज की पूरी प्रीमियम VLVIP सेटिंग (मोबाइल स्क्रीन पर स्क्रॉल बार छिपाने के लिए)
 st.set_page_config(page_title="Happy Janmashtami!", page_icon="🪈", layout="centered")
 
-# 2. एडवांस CSS: लाइटवेट नियॉन ग्लो और मॉडर्न डिज़ाइन इफेक्ट्स (No Screen Crash)
+# 2. एडवांस CSS: टेक्स्ट एनीमेशन, नियॉन ग्लो और प्रीमियम लेआउट इफेक्ट्स
 custom_css = """
 <style>
     /* ऐप का शानदार डार्क और मॉडर्न फेस्टिव बैकग्राउंड */
     .stApp {
-        background: linear-gradient(135deg, #0d001a 0%, #1a0033 50%, #2d004d 100%) !important;
+        background: linear-gradient(135deg, #090014 0%, #15002a 50%, #26004d 100%) !important;
         color: #ffffff;
         overflow: hidden !important;
     }
     
     /* मुख्य कंटेनर को मोबाइल स्क्रीन की हाइट में फिट करने के लिए */
     .block-container {
-        padding-top: 1rem !important;
+        padding-top: 0.8rem !important;
         padding-bottom: 0rem !important;
         max-width: 450px !important;
     }
     
-    /* मुख्य चमकती और रंग बदलने वाली एनिमेटेड हेडिंग */
+    /* जादू: मुख्य हेडिंग जो धीरे-धीरे चमकते हुए अपना रंग बदलेगी (Animated Gradient Text) */
     .main-title {
         font-family: 'Georgia', serif;
         text-align: center;
-        font-size: 2.3rem;
+        font-size: 2.5rem;
         font-weight: bold;
         letter-spacing: 1px;
         margin-top: 5px;
-        margin-bottom: 2px;
-        animation: neonGlow 3s ease-in-out infinite alternate;
+        margin-bottom: 5px;
+        background: linear-gradient(to right, #ff007f, #FFD700, #00ffcc, #ff007f);
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: textShine 4s linear infinite, headingGlow 2s ease-in-out infinite alternate;
     }
     
-    @keyframes neonGlow {
-        0% {
-            color: #ffffff;
-            text-shadow: 0 0 10px #ff007f, 0 0 20px #ff007f, 0 0 30px #9900ff;
-        }
-        100% {
-            color: #FFD700;
-            text-shadow: 0 0 15px #ff6600, 0 0 25px #ff6600, 0 0 40px #ff007f;
-        }
+    @keyframes textShine {
+        0% { background-position: 0% center; }
+        100% { background-position: 200% center; }
+    }
+    
+    @keyframes headingGlow {
+        0% { filter: drop-shadow(0 0 5px rgba(255, 0, 127, 0.6)); }
+        100% { filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.8)); }
     }
 
     /* जिसने भेजा है उसका नाम दिखाने के लिए VIP शाइनिंग स्टाइल */
@@ -72,7 +75,7 @@ custom_css = """
         display: block;
         margin-left: auto;
         margin-right: auto;
-        max-height: 280px !important;
+        max-height: 275px !important;
         width: auto !important;
         border-radius: 20px !important;
         box-shadow: 0px 0px 30px #ff007f, 0px 0px 15px #9900ff !important;
@@ -80,7 +83,7 @@ custom_css = """
         animation: superFloat 4s ease-in-out infinite !important;
     }
 
-    /* नीचे का प्रीमियम शुभकामनाएं (Best Wishes) बॉक्स */
+    /* नीचे का प्रीमियम शुभकामनाएं (Best Wishes) बॉक्स जो धीरे-धीरे फेड-इन-आउट लाइट देगा */
     .wishes-container {
         background: rgba(255, 255, 255, 0.04);
         border-radius: 15px;
@@ -97,6 +100,7 @@ custom_css = """
         font-size: 1.05rem;
         line-height: 1.6;
         margin-bottom: 8px;
+        animation: smoothPulse 3s ease-in-out infinite alternate;
     }
     
     .wish-highlight {
@@ -105,11 +109,16 @@ custom_css = """
         text-shadow: 0px 0px 5px rgba(255, 215, 0, 0.4);
     }
 
-    /* रिस्पॉन्सिव हाइट मोशन */
+    /* टेक्स्ट और इमेज के लिए एनिमेशन के नियम */
     @keyframes superFloat {
         0% { transform: translateY(0px); }
-        50% { transform: translateY(-10px); }
+        50% { transform: translateY(-12px); }
         100% { transform: translateY(0px); }
+    }
+    
+    @keyframes smoothPulse {
+        0% { opacity: 0.85; }
+        100% { opacity: 1; filter: drop-shadow(0 0 2px rgba(0, 255, 204, 0.3)); }
     }
 </style>
 """
@@ -119,7 +128,7 @@ st.markdown(custom_css, unsafe_allow_html=True)
 query_params = st.query_params
 sender = query_params.get("name", "")
 
-# 4. स्क्रीन पर सबसे ऊपर "Happy Janmashtami" हेडिंग
+# 4. स्क्रीन पर सबसे ऊपर "Happy Janmashtami" हेडिंग (अब जादुई तरीके से रंग बदलेगी)
 st.markdown("<h1 class='main-title'>✨ Happy Janmashtami ✨</h1>", unsafe_allow_html=True)
 
 # 5. अगर किसी ने अपना नाम लिंक में भेजा है तो वह यहाँ चमकेगा
@@ -142,7 +151,7 @@ if os.path.exists(image_path):
 else:
     st.warning("कृपया पेज को एक बार रिफ्रेश करें।")
 
-# 7. नीचे का प्रीमियम शुभकामनाएं (Best Wishes) बॉक्स
+# 7. नीचे का प्रीमियम शुभकामनाएं (Best Wishes) बॉक्स जो एनिमेटेड है
 st.markdown(
     """
     <div class="wishes-container">
