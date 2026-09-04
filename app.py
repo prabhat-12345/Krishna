@@ -4,7 +4,7 @@ import os
 # 1. पेज की पूरी प्रीमियम VLVIP सेटिंग (मोबाइल स्क्रीन पर स्क्रॉल बार छिपाने के लिए)
 st.set_page_config(page_title="Happy Janmashtami!", page_icon="🪈", layout="centered")
 
-# 2. एडवांस CSS: हेडिंग, फोटो बॉर्डर और नीचे के कोट्स—सब कुछ 100% लाइव एनिमेटेड और नियॉन ग्लो
+# 2. एडवांस CSS: हेडिंग, घूमता नियॉन बॉर्डर, धड़कती हुई रोशनी और लाइव शाइनिंग कोट्स
 custom_css = """
 <style>
     /* ऐप का शानदार डार्क और मॉडर्न फेस्टिव बैकग्राउंड */
@@ -60,7 +60,17 @@ custom_css = """
         text-shadow: 0px 0px 10px rgba(255, 170, 0, 0.5);
     }
     
-    /* जादू 1: इमेज के चारों तरफ का वीआईपी नियॉन बॉर्डर जो लगातार अपनी चमक और रंग बदलेगा (Pulse & Rotate Glow) */
+    /* जादुई नया फ्रेम: फोटो के चारों तरफ घूमने वाला नियॉन बॉर्डर और बैकग्राउंड पल्स ग्लो */
+    .stImage {
+        position: relative;
+        padding: 6px;
+        background: linear-gradient(0deg, #ff007f, #FFD700, #00ffcc, #ff007f);
+        background-size: 400% 400%;
+        border-radius: 25px;
+        animation: borderRotate 6s linear infinite, superFloat 4s ease-in-out infinite;
+        box-shadow: 0px 0px 35px rgba(255, 0, 127, 0.6), 0px 0px 15px rgba(255, 215, 0, 0.4) !important;
+    }
+
     .stImage img {
         display: block;
         margin-left: auto;
@@ -68,11 +78,11 @@ custom_css = """
         max-height: 275px !important;
         width: auto !important;
         border-radius: 20px !important;
-        border: 2px solid rgba(255, 0, 127, 0.4) !important;
-        animation: superFloat 4s ease-in-out infinite, photoGlow 3s ease-in-out infinite alternate !important;
+        border: none !important;
+        box-shadow: none !important;
     }
 
-    /* जादू 2: नीचे का प्रीमियम शुभकामनाएं बॉक्स जिसके टेक्स्ट अब सोने की लहर की तरह लाइव चमकेंगे (Shining Quotes) */
+    /* नीचे का प्रीमियम शुभकामनाएं बॉक्स जिसके टेक्स्ट अब सोने की लहर की तरह लाइव चमकेंगे */
     .wishes-container {
         background: rgba(255, 255, 255, 0.04);
         border-radius: 15px;
@@ -105,7 +115,13 @@ custom_css = """
         animation: textShine 3s linear infinite;
     }
 
-    /* सभी एनीमेशन के सीक्रेट रूल्स */
+    /* सभी एनिमेटेड जादुई इफ़ेक्ट के नियम */
+    @keyframes borderRotate {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+
     @keyframes textShine {
         0% { background-position: 0% center; }
         100% { background-position: 200% center; }
@@ -114,11 +130,6 @@ custom_css = """
     @keyframes headingGlow {
         0% { filter: drop-shadow(0 0 5px rgba(255, 0, 127, 0.6)); }
         100% { filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.8)); }
-    }
-
-    @keyframes photoGlow {
-        0% { box-shadow: 0px 0px 15px #ff007f, 0px 0px 5px #9900ff !important; }
-        100% { box-shadow: 0px 0px 35px #FFD700, 0px 0px 15px #ff6600 !important; }
     }
 
     @keyframes superFloat {
@@ -149,7 +160,7 @@ if sender:
         unsafe_allow_html=True
     )
 
-# 6. तुम्हारी वही असली सुंदर फोटो 'images (52).jpeg' (अब डबल एनिमेटेड ग्लो के साथ)
+# 6. आपकी वही असली सुंदर फोटो 'images (52).jpeg' (अब घूमते हुए नियॉन और पल्स लाइट फ्रेम में बंद है)
 image_path = "images (52).jpeg"
 
 if os.path.exists(image_path):
@@ -169,5 +180,5 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# 8. ऐप खुलते ही स्क्रीन पर गुब्बारे उड़ाना
+# 8. ऐप खुलते ही स्क्रीन पर उत्सव का माहौल बनाने के लिए गुब्बारे उड़ाना
 st.balloons()
